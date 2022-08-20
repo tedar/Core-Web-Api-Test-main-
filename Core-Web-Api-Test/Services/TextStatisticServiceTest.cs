@@ -54,6 +54,7 @@ namespace Core_Web_Api_Test.Services
         [InlineData("one two one", new string[] {"one","two"}, new int[]{2,1})]
         [InlineData("one two three four five six seven eight nine ten", new string[] {"eight","five","four","nine","one","seven","six","ten","three","two"}, new int[]{1,1,1,1,1,1,1,1,1,1})]
         [InlineData("one tHree three Four four fOur nIne nine niNe Ten", new string[] {"four","nine","three","one","ten"}, new int[]{3,3,2,1,1})]
+        [InlineData("a a a a A A A A B B B B B b b b b b c c c C C C d D e E f F g h i j k", new string[] { "b", "a", "c", "d", "e", "f", "g", "h", "i", "j" }, new int[] { 10, 8, 6, 2, 2, 2, 1, 1, 1, 1 })]
 
         public void When_word_rank_called_then_correct_value_returned(string loadString,string[] expectedWords, int[] expectedCounts)
         {

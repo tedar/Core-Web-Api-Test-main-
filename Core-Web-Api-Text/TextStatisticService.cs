@@ -26,7 +26,7 @@ namespace Core_Web_Api_Text
         /// <returns>the number of characters in the string</returns>
         public int GetSentenceCount()
         {
-            return Text.Split('.').Length;
+            return 0;
         }
 
         /// <summary>
@@ -95,8 +95,20 @@ namespace Core_Web_Api_Text
         /// <returns>Up to ten word with their count of instances in the string</returns>
         public Dictionary<string, int> GetTopTenWords()
         {
+            var words = Text.Split();
 
-            throw new NotImplementedException();
+            var topWords = words.GroupBy(w => w, 
+                StringComparer.CurrentCultureIgnoreCase)
+                .Select(group => new { 
+                    word = group.Key.ToLower(), 
+                    count = group.Count() })
+                .OrderByDescending(x => x.count)
+                .ThenBy(x => x.word)
+                .Take(10)                
+                .ToDictionary(x => x.word, x => x.count);
+
+            return topWords;
+
         }
 
     }
