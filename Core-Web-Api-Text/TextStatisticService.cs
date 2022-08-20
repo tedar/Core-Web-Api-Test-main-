@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Core_Web_Api_Text
 {
-    public class TextStatisticService
+    public class TextStatisticService : ITextStatisticService
     {
         public string Text { get; private set; } = string.Empty;
 

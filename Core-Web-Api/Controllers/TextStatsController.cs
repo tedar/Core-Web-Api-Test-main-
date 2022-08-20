@@ -9,6 +9,13 @@ namespace Core_Web_Api.Controllers
     [ApiController]
     public class TextStatsController : ControllerBase
     {
+        private readonly ITextStatisticService _textStatisticService;
+
+        public TextStatsController(ITextStatisticService textStatisticService)
+        {
+            _textStatisticService = textStatisticService;
+        }
+
         /// <summary>
         /// Gets statistical details from a string provided
         /// </summary>
@@ -44,20 +51,19 @@ namespace Core_Web_Api.Controllers
             return Ok(Summary(fileContents).ToString());
         }
 
-        private static StringBuilder Summary(string requestedText)
+        private StringBuilder Summary(string requestedText)
         {
-            var service = new TextStatisticService();
-            service.LoadString(requestedText);
+            _textStatisticService.LoadString(requestedText);
 
             var sb = new StringBuilder();
 
-            sb.AppendLine("Character count: " + service.GetCharacterCount());
-            sb.AppendLine("Line count: " + service.GetLineCount());
-            sb.AppendLine("Paragraph count: " + service.GetParagraphCount());
-            sb.AppendLine("Sentence count: " + service.GetSentenceCount());
+            sb.AppendLine("Character count: " + _textStatisticService.GetCharacterCount());
+            sb.AppendLine("Line count: " + _textStatisticService.GetLineCount());
+            sb.AppendLine("Paragraph count: " + _textStatisticService.GetParagraphCount());
+            sb.AppendLine("Sentence count: " + _textStatisticService.GetSentenceCount());
             sb.AppendLine("Top Ten Words:");
 
-            var topTenWords = service.GetTopTenWords();
+            var topTenWords = _textStatisticService.GetTopTenWords();
 
             foreach (var entry in topTenWords)
             {
