@@ -34,7 +34,7 @@ namespace Core_Web_Api.Controllers
                 return BadRequest();
             }
 
-            string fileContents = String.Empty;
+            var fileContents = String.Empty;
 
             using (var reader = new StreamReader(textFile.OpenReadStream()))
             {
@@ -49,7 +49,7 @@ namespace Core_Web_Api.Controllers
             var service = new TextStatisticService();
             service.LoadString(requestedText);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine("Character count: " + service.GetCharacterCount());
             sb.AppendLine("Line count: " + service.GetLineCount());

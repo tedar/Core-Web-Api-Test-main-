@@ -22,7 +22,7 @@ namespace Core_Web_Api_Test.Services
         {
             // Arrange
             var service = new TextStatisticService();
-            Action act = ()=> service.LoadString("TEST");
+            void act() => service.LoadString("TEST");
             // Act
 
             var exception = Record.Exception(act);

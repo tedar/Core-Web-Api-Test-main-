@@ -57,7 +57,6 @@ namespace Core_Web_Api_Text
         /// <returns>The number of paragraphs in the string</returns>
         public int GetParagraphCount()
         {
-
             var paragraphs = Text.Split(new[] {Environment.NewLine + Environment.NewLine},
                 StringSplitOptions.RemoveEmptyEntries);
             return paragraphs.Length;
@@ -70,7 +69,8 @@ namespace Core_Web_Api_Text
         /// <returns>The number of characters in the string</returns>
         public int GetCharacterCount()
         {
-            StringBuilder sb = new StringBuilder(Text.Length);
+            var sb = new StringBuilder(Text.Length);
+
             for (int i = 0; i < Text.Length; i++)
             {
                 char c = Text[i];
@@ -86,6 +86,7 @@ namespace Core_Web_Api_Text
                         break;
                 }
             }
+
             return sb.ToString().Length;
         }
 
