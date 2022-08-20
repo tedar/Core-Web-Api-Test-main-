@@ -40,11 +40,11 @@ namespace Core_Web_Api.Controllers
         /// Gets statistical details from a file provided
         /// </summary>
         /// <returns>A set of statistics</returns>
-
+/*
         [HttpPost(Name = "GetTextFileStats")]
-        public ActionResult GetTextFileStats(IFormFile file)
+        public ActionResult GetTextFileStats(IFormFile textFile)
         {
             return Ok();
-        }
+        }*/
     }
 }
