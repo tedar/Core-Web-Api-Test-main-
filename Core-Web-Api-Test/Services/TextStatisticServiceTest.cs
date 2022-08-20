@@ -71,8 +71,7 @@ namespace Core_Web_Api_Test.Services
             // Assert
    
             Assert.True(expectedWords.SequenceEqual(topTenWords.Keys));
-            Assert.True(expectedCounts.SequenceEqual(topTenWords.Values));
-            
+            Assert.True(expectedCounts.SequenceEqual(topTenWords.Values));            
         }
 
     }

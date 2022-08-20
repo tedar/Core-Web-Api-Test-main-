@@ -26,7 +26,7 @@ namespace Core_Web_Api_Text
         /// <returns>the number of characters in the string</returns>
         public int GetSentenceCount()
         {
-            return 0;
+            return Text.Split('.').Length;
         }
 
         /// <summary>
