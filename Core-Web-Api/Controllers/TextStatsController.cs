@@ -14,7 +14,7 @@ namespace Core_Web_Api.Controllers
         /// </summary>
         /// <param name="requestedText">The text to be analyzed.</param>
         /// <returns>A set of statistics</returns>
-        [HttpPost(Name = "GetTextStats")]
+        [HttpPost("GetTextStats", Name = "GetTextStats")]
         public ActionResult GetTextStats([FromBody]string requestedText)
         {
             var service = new TextStatisticService();
@@ -26,12 +26,12 @@ namespace Core_Web_Api.Controllers
             sb.AppendLine("Line count: " + service.GetLineCount());
             sb.AppendLine("Paragraph count: " + service.GetParagraphCount());
             sb.AppendLine("Sentence count: " + service.GetSentenceCount());
-            // sb.AppendLine("Top Ten Words:");
-            //var topTenWords = service.GetTopTenWords();
-            //foreach (var entry in topTenWords)
-            //{
-            //    sb.AppendLine(entry.Key + " : " + entry.Value);
-            //}
+             sb.AppendLine("Top Ten Words:");
+            var topTenWords = service.GetTopTenWords();
+            foreach (var entry in topTenWords)
+            {
+                sb.AppendLine(entry.Key + " : " + entry.Value);
+            }
 
             return Ok(sb.ToString());
         }
@@ -39,12 +39,42 @@ namespace Core_Web_Api.Controllers
         /// <summary>
         /// Gets statistical details from a file provided
         /// </summary>
+        /// <param name="textFile">The file to be analyzed.</param>/// 
         /// <returns>A set of statistics</returns>
-/*
-        [HttpPost(Name = "GetTextFileStats")]
-        public ActionResult GetTextFileStats(IFormFile textFile)
+
+        [HttpPost("GetTextFileStats", Name = "GetTextFileStats")]
+        public async Task<ActionResult> GetTextFileStats(IFormFile textFile)
         {
-            return Ok();
-        }*/
+            if (textFile == null || textFile.Length == 0)
+            {
+                return BadRequest();
+            }
+
+            var service = new TextStatisticService();
+
+            using (var reader = new StreamReader(textFile.OpenReadStream()))
+            {
+
+
+                string fileContents = await reader.ReadToEndAsync();
+
+                service.LoadString(fileContents);
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("Character count: " + service.GetCharacterCount());
+            sb.AppendLine("Line count: " + service.GetLineCount());
+            sb.AppendLine("Paragraph count: " + service.GetParagraphCount());
+            sb.AppendLine("Sentence count: " + service.GetSentenceCount());
+            sb.AppendLine("Top Ten Words:");
+            var topTenWords = service.GetTopTenWords();
+            foreach (var entry in topTenWords)
+            {
+                sb.AppendLine(entry.Key + " : " + entry.Value);
+            }
+
+            return Ok(sb.ToString());
+        }
     }
 }
